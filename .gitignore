@@ -1,0 +1,34 @@
+# Build output
+bin/
+obj/
+
+# Compiled objects
+*.o
+*.a
+*.so
+*.out
+
+# Executables (catch any built outside bin/)
+*.exe
+
+# Debug files
+*.dSYM/
+*.su
+
+# Dependency files
+*.d
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+.cache/
