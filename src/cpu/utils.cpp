@@ -1,18 +1,24 @@
 #include "cpu.hpp"
 
-void load16(Register reg, short n16) { registers[reg] = n16; }
+void load16(Register reg) {
+    short n16 = memory[registers[PC]++];
+    n16 = n16 << 8;
+    n16 += memory[registers[PC]++];
+    registers[reg] = n16;
+}
 
-void aload16(unsigned char mem, Register reg) {
+void aload16(Register reg) {
   unsigned short regVal = registers[reg];
 
   unsigned char p1 = static_cast<unsigned char>(regVal & 0x00ff);
   unsigned char p2 = static_cast<unsigned char>(regVal >> 8);
 
-  memory[mem] = p1;
-  memory[mem + 1] = p2;
+  memory[registers[PC]++] = p1;
+  memory[registers[PC]++] = p2;
 }
 
-void load8(HalfRegister hreg, short n8) {
+void load8(HalfRegister hreg, unsigned char val) {
+   unsigned short n8 = static_cast<unsigned short>(val);
   switch (hreg) {
   case A: {
       registers[AF] = registers[AF] & 0x0f;
@@ -91,9 +97,19 @@ void setFlag(RegisterFlags flag, bool val) {
   }
 }
 
-void addr16(Register r1, Register r2) { registers[r1] += registers[r2]; }
+void load8(HalfRegister hr) {
+    load8(hr, memory[registers[PC]++]);
+}
 
-void loada8(HalfRegister hreg, Register reg) {
+void addr16(Register r1, Register r2) {
+    setFlag(CARRY_FLAG, registers[r1] > 0xffff - registers[r2]);
+
+    unsigned char l = registers[r1] >> 8;
+    unsigned char c = registers[r2] >> 8;
+    setFlag(HALF_CARRY_FLAG, l > 0xff - c);
+
+    registers[r1] += registers[r2];
+    setFlag(SUBTRACTION_FLAG, 0);
 }
 
 unsigned char getHalfRegister(HalfRegister hr) {
@@ -113,7 +129,7 @@ void incHalfReg(HalfRegister hreg) {
     load8(hreg, hregVal);
 
     setFlag(ZERO_FLAG, hregVal==0);
-    setFlag(SUBTRACTION_FLAG, false);
+    setFlag(SUBTRACTION_FLAG, 0);
 }
 
 void decHalfReg(HalfRegister hreg) {
@@ -125,4 +141,9 @@ void decHalfReg(HalfRegister hreg) {
 
     setFlag(ZERO_FLAG, hregVal==0);
     setFlag(SUBTRACTION_FLAG, 1);
+}
+
+void aload8(Register addr, HalfRegister val) {
+    unsigned char regVal = getHalfRegister(val);
+    memory[registers[addr]] = regVal;
 }

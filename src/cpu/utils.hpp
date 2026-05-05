@@ -2,12 +2,16 @@
 
 //half registers
 unsigned char getHalfRegister(HalfRegister hr);
-void setHalfRegister(HalfRegister hr, unsigned char val);
+void setHalfRegister(HalfRegister hr);
+void incHalfReg(HalfRegister hr);
+void decHalfReg(HalfRegister hr);
 
 //Load
-void load16(Register reg, short n16);
-void load8(HalfRegister hreg, short n8);
-void aload16(char mem, Register reg);
+void load16(Register reg);
+void load8(HalfRegister hreg, unsigned short n8);
+void load8(HalfRegister hreg);
+void aload16(Register reg);
+void aload8(Register addr, HalfRegister val);
 void loada8(HalfRegister hr, Register reg);
 
 //Flags

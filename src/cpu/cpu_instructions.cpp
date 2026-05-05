@@ -7,15 +7,11 @@ void decode_execute(char ins) {
     break;
 
   case 0x01: {
-    short n16 = memory[registers[PC]++];
-    n16 = n16 << 8;
-    n16 += memory[registers[PC]++];
-    load16(BC, n16);
+    load16(BC);
     break;
   }
   case 0x02: {
-    unsigned char a = registers[AF] >> 8;
-    memory[registers[BC]] = a;
+    aload8(BC, A);
     break;
   }
   case 0x03: {
@@ -23,76 +19,49 @@ void decode_execute(char ins) {
     break;
   }
   case 0x04: {
-    unsigned char b = registers[BC] >> 8;
-
-    setFlag(HALF_CARRY_FLAG, b == 255);
-
-    b++;
-    registers[BC] = ((short)b << 8) & (registers[BC] & 0x0f);
-
-    setFlag(ZERO_FLAG, b==0);
-    setFlag(SUBTRACTION_FLAG, false);
-
+    incHalfReg(B);
     break;
   }
   case 0x05: {
-    unsigned char b = registers[BC] >> 8;
-
-    setFlag(HALF_CARRY_FLAG, b == 0);
-
-    b--;
-    registers[BC] = ((short)b << 8) & (registers[BC] & 0x0f);
-
-    setFlag(ZERO_FLAG, b==0);
-    setFlag(SUBTRACTION_FLAG, true);
-
+    decHalfReg(B);
     break;
   }
   case 0x06: {
-      load8(B, memory[registers[PC]++]);
-      break;
+    load8(B);
+    break;
   }
   case 0x07: {
-      unsigned char a = registers[AF] >> 8;
+    unsigned char a = registers[AF] >> 8;
 
-      unsigned char msb = a >> 7;
-      a = a << 1;
-      a &= 0b11111110;
-      a += msb;
+    unsigned char msb = a >> 7;
+    a = a << 1;
+    a &= 0b11111110;
+    a += msb;
 
-      registers[AF] = ((short)a << 8) & (registers[BC] & 0x0f);
+    registers[AF] = ((short)a << 8) & (registers[BC] & 0x0f);
 
-      setFlag(ZERO_FLAG, 0);
-      setFlag(SUBTRACTION_FLAG, 0);
-      setFlag(HALF_CARRY_FLAG, 0);
-      setFlag(CARRY_FLAG, msb==1);
+    setFlag(ZERO_FLAG, 0);
+    setFlag(SUBTRACTION_FLAG, 0);
+    setFlag(HALF_CARRY_FLAG, 0);
+    setFlag(CARRY_FLAG, msb == 1);
 
-      break;
+    break;
   }
   case 0x08: {
-      char addr = memory[registers[PC]++];
-      aload16(addr, SP);
-
-      break;
+    aload16(SP);
+    break;
   }
   case 0x09: {
-      setFlag(CARRY_FLAG, registers[HL] > 0xffff - registers[BC]);
-
-      unsigned char l = registers[HL] >> 8;
-      unsigned char c = registers[BC] >> 8;
-      setFlag(HALF_CARRY_FLAG, l > 0xff - c);
-
-      addr16(HL, BC);
-
-      setFlag(SUBTRACTION_FLAG, 0);
+    addr16(HL, BC);
+    break;
   }
   case 0x0A: {
-      unsigned char val = memory[registers[BC]];
-      load8(A, static_cast<unsigned short>(val));
+    load8(A, memory[registers[BC]]);
   }
   case 0x0B: {
-      registers[BC]--;
-      break;
+    registers[BC]--;
+    break;
   }
+
   }
 }
