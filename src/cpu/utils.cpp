@@ -144,6 +144,11 @@ void aload8(Register addr, HalfRegister val) {
   memory[registers[addr]] = regVal;
 }
 
+void aload8(Register addr) {
+    unsigned char regVal = memory[registers[PC]++];
+      memory[registers[addr]] = regVal;
+}
+
 void load8(HalfRegister dest, Register addr) {
   unsigned char val = memory[registers[addr]];
   load8(dest, val);
@@ -199,4 +204,8 @@ void jumpCondition(ConditionCode cond) {
     }
   }
   }
+}
+
+void load8(HalfRegister dest, HalfRegister val) {
+    load8(dest, getHalfRegister(val));
 }

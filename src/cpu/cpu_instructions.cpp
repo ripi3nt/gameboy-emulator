@@ -267,9 +267,142 @@ void decode_execute(char ins) {
     unsigned char a = getHalfRegister(A);
     a = ~a;
     load8(A, a);
+    break;
   }
   case 0x30: {
-
+    jumpCondition(NC);
+    break;
+  }
+  case 0x31: {
+    load16(SP);
+    break;
+  }
+  case 0x32: {
+    unsigned char regVal = getHalfRegister(A);
+    memory[registers[HL - 1]] = regVal;
+    break;
+  }
+  case 0x33: {
+    registers[SP]++;
+    break;
+  }
+  case 0x34: {
+    setFlag(HALF_CARRY_FLAG, memory[registers[HL]] == 255);
+    memory[registers[HL]]++;
+    setFlag(ZERO_FLAG, memory[registers[HL]] == 0);
+    setFlag(SUBTRACTION_FLAG, 0);
+    break;
+  }
+  case 0x35: {
+    setFlag(HALF_CARRY_FLAG, memory[registers[HL]] == 0);
+    memory[registers[HL]]--;
+    setFlag(ZERO_FLAG, memory[registers[HL]] == 0);
+    setFlag(SUBTRACTION_FLAG, 1);
+    break;
+  }
+  case 0x36: {
+      aload8(HL);
+      break;
+  }
+  case 0x37: {
+      setFlag(CARRY_FLAG, 1);
+      break;
+  }
+  case 0x38: {
+      jumpCondition(CC);
+      break;
+  }
+  case 0x39: {
+      addr16(HL, SP);
+      break;
+  }
+  case 0x3A: {
+      load8(A, memory[registers[HL] - 1]);
+      break;
+  }
+  case 0x3B: {
+      registers[SP]--;
+      break;
+  }
+  case 0x3C: {
+      incHalfReg(A);
+      break;
+  }
+  case 0x3D: {
+      decHalfReg(A);
+      break;
+  }
+  case 0x3E: {
+      load8(A);
+      break;
+  }
+  case 0x3F: {
+      setFlag(CARRY_FLAG, !getFlag(CARRY_FLAG));
+      break;
+  }
+  case 0x40: {
+      load8(B, B);
+      break;
+  }
+  case 0x41: {
+      load8(B, C);
+      break;
+  }
+  case 0x42: {
+      load8(B, D);
+      break;
+  }
+  case 0x43: {
+      load8(B, E);
+      break;
+  }
+  case 0x44: {
+     load8(B, H);
+    break;
+  }
+  case 0x45: {
+      load8(B, L);
+      break;
+  }
+  case 0x46: {
+      load8(B, HL);
+      break;
+  }
+  case 0x47: {
+      load8(B, A);
+      break;
+  }
+  case 0x48: {
+      load8(C, B);
+      break;
+  }
+  case 0x49: {
+      load8(C, C);
+      break;
+  }
+  case 0x4A: {
+      load8(C, D);
+      break;
+  }
+  case 0x4B: {
+      load8(C, E);
+      break;
+  }
+  case 0x4C: {
+      load8(C, H);
+      break;
+  }
+  case 0x4D: {
+      load8(C, L);
+      break;
+  }
+  case 0x4E: {
+      load8(C, HL);
+      break;
+  }
+  case 0x4F: {
+      load8(C, A);
+      break;
   }
   }
 }

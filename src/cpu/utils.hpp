@@ -13,6 +13,7 @@ void load8(HalfRegister hreg);
 void load8(HalfRegister dest, Register addr);
 void aload16(Register reg);
 void aload8(Register addr, HalfRegister val);
+void aload8(Register addr);
 
 //Flags
 void setFlag(RegisterFlags flag, bool val);
