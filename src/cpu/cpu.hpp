@@ -10,6 +10,10 @@ enum HalfRegister {
 
 enum RegisterFlags { ZERO_FLAG, SUBTRACTION_FLAG, HALF_CARRY_FLAG, CARRY_FLAG };
 
+enum ConditionCode {
+    NZ, Z, NC, CC
+};;
+
 unsigned short registers[6];
 
 unsigned char memory[0xffff];

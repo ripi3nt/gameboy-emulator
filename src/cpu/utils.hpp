@@ -22,3 +22,4 @@ bool getFlag(RegisterFlags flag);
 void addr16(Register r1, Register r2);
 
 //Jumps
+void jumpCondition(ConditionCode cond);

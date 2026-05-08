@@ -145,8 +145,8 @@ void aload8(Register addr, HalfRegister val) {
 }
 
 void load8(HalfRegister dest, Register addr) {
-    unsigned char val = memory[registers[addr]];
-    load8(dest, val);
+  unsigned char val = memory[registers[addr]];
+  load8(dest, val);
 }
 
 bool getFlag(RegisterFlags flag) {
@@ -168,6 +168,35 @@ bool getFlag(RegisterFlags flag) {
   case CARRY_FLAG: {
     return (flags & 0b00010000) > 0;
     break;
+  }
+  }
+}
+
+void jumpCondition(ConditionCode cond) {
+  switch (cond) {
+  case NZ: {
+    if (!getFlag(ZERO_FLAG)) {
+      signed char offset = memory[registers[PC]++];
+      registers[PC] += offset;
+    }
+  }
+  case Z: {
+    if (getFlag(ZERO_FLAG)) {
+      signed char offset = memory[registers[PC]++];
+      registers[PC] += offset;
+    }
+  }
+  case NC: {
+    if (!getFlag(CARRY_FLAG)) {
+      signed char offset = memory[registers[PC]++];
+      registers[PC] += offset;
+    }
+  }
+  case CC: {
+    if (getFlag(CARRY_FLAG)) {
+      signed char offset = memory[registers[PC]++];
+      registers[PC] += offset;
+    }
   }
   }
 }
