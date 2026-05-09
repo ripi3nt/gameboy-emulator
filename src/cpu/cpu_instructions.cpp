@@ -404,5 +404,133 @@ void decode_execute(char ins) {
       load8(C, A);
       break;
   }
+  case 0x50: {
+      load8(D, B);
+      break;
+  }
+  case 0x51: {
+      load8(D, C);
+      break;
+  }
+  case 0x52: {
+      load8(D, D);
+      break;
+  }
+  case 0x53: {
+      load8(D, E);
+      break;
+  }
+  case 0x54: {
+      load8(D, H);
+      break;
+  }
+  case 0x55: {
+      load8(D, D);
+      break;
+  }
+  case 0x56: {
+      load8(D, HL);
+      break;
+  }
+  case 0x57: {
+      load8(D, A);
+      break;
+  }
+  case 0x58: {
+      load8(E, B);
+      break;
+  }
+  case 0x59: {
+      load8(E, C);
+      break;
+  }
+  case 0x5A: {
+      load8(E, D);
+      break;
+  }
+  case 0x5B: {
+      load8(E, E);
+      break;
+  }
+  case 0x5C: {
+      load8(E, H);
+      break;
+  }
+  case 0x5D: {
+      load8(E, L);
+      break;
+  }
+  case 0x5E: {
+      load8(E, HL);
+      break;
+  }
+  case 0x5F: {
+      load8(E, A);
+      break;
+  }
+  case 0x60: {
+      load8(H, B);
+      break;
+  }
+  case 0x61: {
+      load8(H, C);
+      break;
+  }
+  case 0x62: {
+      load8(H, D);
+      break;
+  }
+  case 0x63: {
+      load8(H, E);
+      break;
+  }
+  case 0x64: {
+      load8(H, H);
+      break;
+  }
+  case 0x65: {
+      load8(H, L);
+      break;
+  }
+  case 0x66: {
+      load8(H, HL);
+      break;
+  }
+  case 0x67: {
+      load8(H, A);
+      break;
+  }
+  case 0x68: {
+      load8(L, B);
+      break;
+  }
+  case 0x69: {
+      load8(L, C);
+      break;
+  }
+  case 0x6A: {
+      load8(L, D);
+      break;
+  }
+  case 0x6B: {
+      load8(L, E);
+      break;
+  }
+  case 0x6C: {
+      load8(L, H);
+      break;
+  }
+  case 0x6D: {
+      load8(L, L);
+      break;
+  }
+  case 0x6E: {
+      load8(L, HL);
+      break;
+  }
+  case 0x6F: {
+      load8(L, A);
+      break;
+  }
   }
 }
