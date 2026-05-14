@@ -145,8 +145,8 @@ void aload8(Register addr, HalfRegister val) {
 }
 
 void aload8(Register addr) {
-    unsigned char regVal = memory[registers[PC]++];
-      memory[registers[addr]] = regVal;
+  unsigned char regVal = memory[registers[PC]++];
+  memory[registers[addr]] = regVal;
 }
 
 void load8(HalfRegister dest, Register addr) {
@@ -207,5 +207,30 @@ void jumpCondition(ConditionCode cond) {
 }
 
 void load8(HalfRegister dest, HalfRegister val) {
-    load8(dest, getHalfRegister(val));
+  load8(dest, getHalfRegister(val));
+}
+
+void addr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+
+  setFlag(ZERO_FLAG, val1 + val2 == 0);
+  setFlag(SUBTRACTION_FLAG, 0);
+  setFlag(CARRY_FLAG, val1 > 0xFF - val2);
+  setFlag(HALF_CARRY_FLAG, (val1 & 0xF) + (val2 & 0xF) > 0xF);
+
+  load8(A, val1 + val2);
+}
+
+void adcr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+  unsigned char carry = getFlag(CARRY_FLAG);
+
+  setFlag(ZERO_FLAG, val1 + val2 + carry == 0);
+  setFlag(SUBTRACTION_FLAG, 0);
+  setFlag(CARRY_FLAG, val1 > 0xFF - val2 - carry);
+  setFlag(HALF_CARRY_FLAG, (val1 & 0xF) + (val2 & 0xF) + carry > 0xF);
+
+  load8(A, val1 + val2 + carry);
 }

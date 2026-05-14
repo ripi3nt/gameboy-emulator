@@ -21,6 +21,8 @@ bool getFlag(RegisterFlags flag);
 
 //Arithmetic
 void addr16(Register r1, Register r2);
+void addr8(HalfRegister r2);
+void adcr8(HalfRegister r2);
 
 //Jumps
 void jumpCondition(ConditionCode cond);

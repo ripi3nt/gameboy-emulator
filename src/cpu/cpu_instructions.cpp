@@ -1,5 +1,6 @@
 #include "cpu.hpp"
 #include "utils.hpp"
+#include <cmath>
 
 void decode_execute(char ins) {
   switch (ins) {
@@ -545,55 +546,134 @@ void decode_execute(char ins) {
     break;
   }
   case 0x73: {
-      aload8(HL, E);
-      break;
+    aload8(HL, E);
+    break;
   }
   case 0x74: {
-      aload8(HL, H);
-      break;
+    aload8(HL, H);
+    break;
   }
   case 0x75: {
-      aload8(HL, L);
-      break;
+    aload8(HL, L);
+    break;
   }
   case 0x76: {
-    //TODO: halt?
+    // TODO: halt?
     break;
   }
   case 0x77: {
-      aload8(HL, A);
-      break;
+    aload8(HL, A);
+    break;
   }
   case 0x78: {
-      load8(A, B);
-      break;
+    load8(A, B);
+    break;
   }
   case 0x79: {
-      load8(A, C);
-      break;
+    load8(A, C);
+    break;
   }
   case 0x7A: {
-      load8(A, D);
-      break;
+    load8(A, D);
+    break;
   }
   case 0x7B: {
-      load8(A, E);
-      break;
+    load8(A, E);
+    break;
   }
   case 0x7C: {
-      load8(A, H);
-      break;
+    load8(A, H);
+    break;
   }
   case 0x7D: {
-      load8(A, L);
-      break;
+    load8(A, L);
+    break;
   }
   case 0x7E: {
-      load8(A, HL);
-      break;
+    load8(A, HL);
+    break;
   }
   case 0x7F: {
-      load8(A, A);
+    load8(A, A);
+    break;
+  }
+  case 0x80: {
+    addr8(B);
+    break;
+  }
+  case 0x81: {
+    addr8(C);
+    break;
+  }
+  case 0x82: {
+    addr8(D);
+    break;
+  }
+  case 0x83: {
+    addr8(E);
+    break;
+  }
+  case 0x84: {
+    addr8(H);
+    break;
+  }
+  case 0x85: {
+    addr8(L);
+  }
+  case 0x86: {
+    unsigned char val1 = getHalfRegister(A);
+    unsigned char val2 = memory[registers[HL]];
+
+    setFlag(ZERO_FLAG, val1 + val2 == 0);
+    setFlag(SUBTRACTION_FLAG, 0);
+    setFlag(CARRY_FLAG, val1 > 0xFF - val2);
+    setFlag(HALF_CARRY_FLAG, (val1 & 0xF) + (val2 & 0xF) > 0xF);
+
+    load8(A, val1 + val2);
+    break;
+  }
+  case 0x87: {
+    addr8(A);
+    break;
+  }
+  case 0x88: {
+    adcr8(B);
+    break;
+  }
+  case 0x89: {
+    adcr8(C);
+    break;
+  }
+  case 0x8A: {
+    adcr8(D);
+    break;
+  }
+  case 0x8B: {
+    adcr8(E);
+    break;
+  }
+  case 0x8C: {
+    adcr8(H);
+    break;
+  }
+  case 0x8D: {
+    adcr8(L);
+    break;
+  }
+  case 0x8E: {
+    unsigned char val1 = getHalfRegister(A);
+    unsigned char val2 = memory[registers[HL]];
+    unsigned char carry = getFlag(CARRY_FLAG);
+
+    setFlag(ZERO_FLAG, val1 + val2 + carry == 0);
+    setFlag(SUBTRACTION_FLAG, 0);
+    setFlag(CARRY_FLAG, val1 > 0xFF - val2 - carry);
+    setFlag(HALF_CARRY_FLAG, (val1 & 0xF) + (val2 & 0xF) + carry > 0xF);
+
+    load8(A, val1 + val2 + carry);
+  }
+  case 0x8F: {
+      adcr8(A);
       break;
   }
   }
