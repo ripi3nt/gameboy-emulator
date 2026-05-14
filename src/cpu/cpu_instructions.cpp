@@ -301,235 +301,299 @@ void decode_execute(char ins) {
     break;
   }
   case 0x36: {
-      aload8(HL);
-      break;
+    aload8(HL);
+    break;
   }
   case 0x37: {
-      setFlag(CARRY_FLAG, 1);
-      break;
+    setFlag(CARRY_FLAG, 1);
+    break;
   }
   case 0x38: {
-      jumpCondition(CC);
-      break;
+    jumpCondition(CC);
+    break;
   }
   case 0x39: {
-      addr16(HL, SP);
-      break;
+    addr16(HL, SP);
+    break;
   }
   case 0x3A: {
-      load8(A, memory[registers[HL] - 1]);
-      break;
+    load8(A, memory[registers[HL] - 1]);
+    break;
   }
   case 0x3B: {
-      registers[SP]--;
-      break;
+    registers[SP]--;
+    break;
   }
   case 0x3C: {
-      incHalfReg(A);
-      break;
+    incHalfReg(A);
+    break;
   }
   case 0x3D: {
-      decHalfReg(A);
-      break;
+    decHalfReg(A);
+    break;
   }
   case 0x3E: {
-      load8(A);
-      break;
+    load8(A);
+    break;
   }
   case 0x3F: {
-      setFlag(CARRY_FLAG, !getFlag(CARRY_FLAG));
-      break;
+    setFlag(CARRY_FLAG, !getFlag(CARRY_FLAG));
+    break;
   }
   case 0x40: {
-      load8(B, B);
-      break;
+    load8(B, B);
+    break;
   }
   case 0x41: {
-      load8(B, C);
-      break;
+    load8(B, C);
+    break;
   }
   case 0x42: {
-      load8(B, D);
-      break;
+    load8(B, D);
+    break;
   }
   case 0x43: {
-      load8(B, E);
-      break;
+    load8(B, E);
+    break;
   }
   case 0x44: {
-     load8(B, H);
+    load8(B, H);
     break;
   }
   case 0x45: {
-      load8(B, L);
-      break;
+    load8(B, L);
+    break;
   }
   case 0x46: {
-      load8(B, HL);
-      break;
+    load8(B, HL);
+    break;
   }
   case 0x47: {
-      load8(B, A);
-      break;
+    load8(B, A);
+    break;
   }
   case 0x48: {
-      load8(C, B);
-      break;
+    load8(C, B);
+    break;
   }
   case 0x49: {
-      load8(C, C);
-      break;
+    load8(C, C);
+    break;
   }
   case 0x4A: {
-      load8(C, D);
-      break;
+    load8(C, D);
+    break;
   }
   case 0x4B: {
-      load8(C, E);
-      break;
+    load8(C, E);
+    break;
   }
   case 0x4C: {
-      load8(C, H);
-      break;
+    load8(C, H);
+    break;
   }
   case 0x4D: {
-      load8(C, L);
-      break;
+    load8(C, L);
+    break;
   }
   case 0x4E: {
-      load8(C, HL);
-      break;
+    load8(C, HL);
+    break;
   }
   case 0x4F: {
-      load8(C, A);
-      break;
+    load8(C, A);
+    break;
   }
   case 0x50: {
-      load8(D, B);
-      break;
+    load8(D, B);
+    break;
   }
   case 0x51: {
-      load8(D, C);
-      break;
+    load8(D, C);
+    break;
   }
   case 0x52: {
-      load8(D, D);
-      break;
+    load8(D, D);
+    break;
   }
   case 0x53: {
-      load8(D, E);
-      break;
+    load8(D, E);
+    break;
   }
   case 0x54: {
-      load8(D, H);
-      break;
+    load8(D, H);
+    break;
   }
   case 0x55: {
-      load8(D, D);
-      break;
+    load8(D, D);
+    break;
   }
   case 0x56: {
-      load8(D, HL);
-      break;
+    load8(D, HL);
+    break;
   }
   case 0x57: {
-      load8(D, A);
-      break;
+    load8(D, A);
+    break;
   }
   case 0x58: {
-      load8(E, B);
-      break;
+    load8(E, B);
+    break;
   }
   case 0x59: {
-      load8(E, C);
-      break;
+    load8(E, C);
+    break;
   }
   case 0x5A: {
-      load8(E, D);
-      break;
+    load8(E, D);
+    break;
   }
   case 0x5B: {
-      load8(E, E);
-      break;
+    load8(E, E);
+    break;
   }
   case 0x5C: {
-      load8(E, H);
-      break;
+    load8(E, H);
+    break;
   }
   case 0x5D: {
-      load8(E, L);
-      break;
+    load8(E, L);
+    break;
   }
   case 0x5E: {
-      load8(E, HL);
-      break;
+    load8(E, HL);
+    break;
   }
   case 0x5F: {
-      load8(E, A);
-      break;
+    load8(E, A);
+    break;
   }
   case 0x60: {
-      load8(H, B);
-      break;
+    load8(H, B);
+    break;
   }
   case 0x61: {
-      load8(H, C);
-      break;
+    load8(H, C);
+    break;
   }
   case 0x62: {
-      load8(H, D);
-      break;
+    load8(H, D);
+    break;
   }
   case 0x63: {
-      load8(H, E);
-      break;
+    load8(H, E);
+    break;
   }
   case 0x64: {
-      load8(H, H);
-      break;
+    load8(H, H);
+    break;
   }
   case 0x65: {
-      load8(H, L);
-      break;
+    load8(H, L);
+    break;
   }
   case 0x66: {
-      load8(H, HL);
-      break;
+    load8(H, HL);
+    break;
   }
   case 0x67: {
-      load8(H, A);
-      break;
+    load8(H, A);
+    break;
   }
   case 0x68: {
-      load8(L, B);
-      break;
+    load8(L, B);
+    break;
   }
   case 0x69: {
-      load8(L, C);
-      break;
+    load8(L, C);
+    break;
   }
   case 0x6A: {
-      load8(L, D);
-      break;
+    load8(L, D);
+    break;
   }
   case 0x6B: {
-      load8(L, E);
-      break;
+    load8(L, E);
+    break;
   }
   case 0x6C: {
-      load8(L, H);
-      break;
+    load8(L, H);
+    break;
   }
   case 0x6D: {
-      load8(L, L);
-      break;
+    load8(L, L);
+    break;
   }
   case 0x6E: {
-      load8(L, HL);
-      break;
+    load8(L, HL);
+    break;
   }
   case 0x6F: {
-      load8(L, A);
+    load8(L, A);
+    break;
+  }
+  case 0x70: {
+    aload8(HL, B);
+    break;
+  }
+  case 0x71: {
+    aload8(HL, C);
+    break;
+  }
+  case 0x72: {
+    aload8(HL, D);
+    break;
+  }
+  case 0x73: {
+      aload8(HL, E);
+      break;
+  }
+  case 0x74: {
+      aload8(HL, H);
+      break;
+  }
+  case 0x75: {
+      aload8(HL, L);
+      break;
+  }
+  case 0x76: {
+    //TODO: halt?
+    break;
+  }
+  case 0x77: {
+      aload8(HL, A);
+      break;
+  }
+  case 0x78: {
+      load8(A, B);
+      break;
+  }
+  case 0x79: {
+      load8(A, C);
+      break;
+  }
+  case 0x7A: {
+      load8(A, D);
+      break;
+  }
+  case 0x7B: {
+      load8(A, E);
+      break;
+  }
+  case 0x7C: {
+      load8(A, H);
+      break;
+  }
+  case 0x7D: {
+      load8(A, L);
+      break;
+  }
+  case 0x7E: {
+      load8(A, HL);
+      break;
+  }
+  case 0x7F: {
+      load8(A, A);
       break;
   }
   }
