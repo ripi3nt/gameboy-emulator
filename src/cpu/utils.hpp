@@ -23,6 +23,10 @@ bool getFlag(RegisterFlags flag);
 void addr16(Register r1, Register r2);
 void addr8(HalfRegister r2);
 void adcr8(HalfRegister r2);
+void subr8(HalfRegister r2);
+void sbcr8(HalfRegister r2);
+void andr8(HalfRegister r2);
+void xorr8(HalfRegister r2);
 
 //Jumps
 void jumpCondition(ConditionCode cond);

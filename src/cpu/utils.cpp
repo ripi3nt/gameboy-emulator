@@ -234,3 +234,52 @@ void adcr8(HalfRegister r2) {
 
   load8(A, val1 + val2 + carry);
 }
+
+void subr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+
+  setFlag(ZERO_FLAG, val1 - val2 == 0);
+  setFlag(SUBTRACTION_FLAG, 1);
+  setFlag(CARRY_FLAG, val1 < val2);
+  setFlag(HALF_CARRY_FLAG, (val1 & 0xF) < (val2 & 0xF));
+
+  load8(A, val1 - val2);
+}
+
+void sbcr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+  unsigned char carry = getFlag(CARRY_FLAG);
+
+  setFlag(ZERO_FLAG, val1 - val2 - carry == 0);
+  setFlag(SUBTRACTION_FLAG, 1);
+  setFlag(CARRY_FLAG, val1 < val2 + carry);
+  setFlag(HALF_CARRY_FLAG, (val1 & 0xF) < (val2 & 0xF) + carry);
+
+  load8(A, val1 - val2);
+}
+
+void andr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+
+  setFlag(ZERO_FLAG, (val1 & val2) == 0);
+  setFlag(SUBTRACTION_FLAG, 0);
+  setFlag(CARRY_FLAG, 0);
+  setFlag(HALF_CARRY_FLAG, 1);
+
+  load8(A, val1 & val2);
+}
+
+void xorr8(HalfRegister r2) {
+  unsigned char val1 = getHalfRegister(A);
+  unsigned char val2 = getHalfRegister(r2);
+
+  setFlag(ZERO_FLAG, (val1 ^ val2) == 0);
+  setFlag(SUBTRACTION_FLAG, 0);
+  setFlag(CARRY_FLAG, 0);
+  setFlag(HALF_CARRY_FLAG, 0);
+
+  load8(A, val1 ^ val2);
+}
